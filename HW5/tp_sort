@@ -1,0 +1,83 @@
+#include <cstdio>
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+int main()
+{
+    int a=0, b=0,n=0,nn=0;
+    int first, second;
+    while (scanf("%d", &n)!=EOF)
+    {
+        int aa[n];
+        bool adj[n][n]; // adjacency matrix
+        // °O¿ý¹Ï€WšC€@­ÓÂI¥Ø«e€Ž³QŠh€Ö±øÃä³sšì
+        int reff[n];
+        memset(reff,0,sizeof(reff)); // ªì©l€Æ
+        memset(adj,0,sizeof(adj));
+
+        for (int i = 0; i < n; i++)
+        {
+            scanf("%d", &aa[i]);
+        }
+        scanf("%d", &nn);
+
+        for (int j = 0; j < nn; j++)
+        {
+            scanf("%d > %d", &a, &b);
+
+            for (int i = 0; i < n; i++)
+            {
+                if (aa[i] == a)
+                {
+                    first = i;
+                    break;
+                }
+            }
+
+            for (int i = 0; i < n; i++)
+            {
+                if (aa[i] == b)
+                {
+                    second = i;
+                    break;
+                }
+            }
+            adj[first][second] = 1;
+        }
+
+    // ²Ö­p¹Ï€WšC€@­ÓÂI³QŽX±øÃä³sšì
+    for (int i = 0; i < n; ++i){
+        for (int j = 0; j < n; ++j){
+            if (adj[i][j]){
+                reff[j]++;
+            }
+        }
+    }
+
+    // ¶}©l§ä¥X€@­ÓŠX²zªº±ÆŠC¶¶§Ç
+    for (int i = 0; i < n; ++i)
+    {
+        // ŽM§äšSŠ³³Q¥ôŠóÃä³sŠVªºÂI
+        int s = 0;
+        while (s < n && reff[s] != 0)
+            ++s;
+
+        if (s == n){
+            break;
+        }
+        reff[s] = -1; // ³]¬°€w§ä¹L¡]§R¥hsÂI¡^
+
+        printf("%d ", aa[s]); // ŠL¥XŠX²zªº±ÆŠC¶¶§Çªº²ÄiÂI
+
+        // §ó·srefªº­È¡]§R¥h¥ÑsÂI³s¥X¥hªºÃä¡^
+        for (int t = 0; t < n; ++t)
+            if (adj[s][t])
+                reff[t]--;
+    }
+        printf("\n");
+
+    }
+
+    return 0;
+}
